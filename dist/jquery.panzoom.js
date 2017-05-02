@@ -1,6 +1,6 @@
 /**
  * @license jquery.panzoom.js v3.2.2
- * Updated: Sun Aug 28 2016
+ * Updated: Tue May 02 2017
  * Add pan and zoom functionality to any element
  * Copyright (c) timmy willison
  * Released under the MIT license
@@ -704,6 +704,11 @@
 				}
 				animate = true;
 			}
+			if (scale >= options.maxScale || scale <= options.minScale) {
+				this.isLockScale = true;
+			} else  {
+				this.isLockScale = false;
+			}
 
 			// Constrain scale
 			scale = Math.max(Math.min(scale, options.maxScale), options.minScale);
@@ -751,7 +756,7 @@
 
 			// Trigger zoom event
 			if (!options.silent) {
-				this._trigger('zoom', matrix[0], options);
+				this._trigger('zoom', matrix[0], options, isLockScale);
 			}
 		},
 

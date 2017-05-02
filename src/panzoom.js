@@ -704,6 +704,11 @@
 				}
 				animate = true;
 			}
+			if (scale >= options.maxScale || scale <= options.minScale) {
+				this.isLockScale = true;
+			} else  {
+				this.isLockScale = false;
+			}
 
 			// Constrain scale
 			scale = Math.max(Math.min(scale, options.maxScale), options.minScale);
@@ -751,7 +756,7 @@
 
 			// Trigger zoom event
 			if (!options.silent) {
-				this._trigger('zoom', matrix[0], options);
+				this._trigger('zoom', matrix[0], options, isLockScale);
 			}
 		},
 
